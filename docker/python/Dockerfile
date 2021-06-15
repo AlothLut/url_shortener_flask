@@ -5,7 +5,7 @@ WORKDIR /home/url-shortener-user/app
 RUN useradd -d /home/url-shortener-user url-shortener-user
 RUN chown -R url-shortener-user:url-shortener-user /home/url-shortener-user
 ENV PATH "$PATH:/home/url-shortener-user/.local/bin"
-ENV FLASK_APP=app.py
+ENV FLASK_APP=manage
 
 USER url-shortener-user
 COPY ./app/requirements.txt ./requirements.txt
@@ -14,9 +14,14 @@ EXPOSE 3031
 
 FROM base as debug
 RUN pip install debugpy
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+ENV FLASK_ENV=development
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+CMD ["python", "-m", "debugpy", "--listen", "0.0.0.0:5678", "-m", "manage", "--wait-for-client", "--multiprocess", \ 
+"-m", "flask", "run", "-h", "0.0.0.0", "-p", "3031" \
+]
 
 FROM base as prod
+ENV FLASK_ENV=prod
 RUN pip install "gunicorn==20.1.0"
-CMD ["gunicorn", "--reload", "--bind", "0.0.0.0:3031", "app:app"]
+CMD ["gunicorn", "--reload", "--bind", "0.0.0.0:3031", "manage:manage"]

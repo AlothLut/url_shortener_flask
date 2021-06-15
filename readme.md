@@ -5,6 +5,9 @@ Docker
 
 Docker-compose
 
+for develop:
+vscode + ms-python.python
+
 
 helpfull commands:
 
