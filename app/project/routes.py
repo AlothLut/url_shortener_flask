@@ -1,11 +1,15 @@
-from project import app
-import os
+from flask.helpers import url_for
+from project import app, db
+from project.controllers import Url
+from flask import render_template, request, redirect
+import os, json
 
-@app.route("/")
+@app.route("/", methods=['GET'])
 def index():
     app_name = os.getenv("FLASK_ENV")
+    return render_template('index.html')
 
-    if app_name:
-        return "Hello from " + app_name  +" running in a Docker container behind Nginx!"
-
-    return "Hello from Flask"
+@app.route("/add_url", methods=['POST'])
+def add_url():
+    status = Url.add()
+    return json.dumps(status)
