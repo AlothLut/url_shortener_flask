@@ -6,8 +6,8 @@ import os, json
 
 @app.route("/", methods=['GET'])
 def index():
-    app_name = os.getenv("FLASK_ENV")
-    return render_template('index.html')
+    recaptcha_site_key = os.getenv("RECAPTCHA_SITE_KEY")
+    return render_template('index.html', recaptcha = recaptcha_site_key)
 
 @app.route("/add_url", methods=['POST'])
 def add_url():

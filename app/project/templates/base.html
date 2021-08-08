@@ -6,5 +6,17 @@
 </head>
 <body>
     <div class="content">{% block content %}{% endblock %}</div>
+
+
+    <script src="{{url_for('static', filename='js/main.js', v=1)}}" type="module"></script>
+
+    {% if recaptcha %}
+        <script
+            src="https://www.google.com/recaptcha/api.js?render={{recaptcha}}"
+            async
+            defer
+        >
+        </script>
+    {% endif %}
 </body>
 </html>
