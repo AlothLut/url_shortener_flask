@@ -26,7 +26,7 @@ export class AddUrl {
             });
             const result = await response.json();
 
-            this.showResult(result.message);
+            this.showResult(result.message, result.alias);
         } catch (e) {
             console.log(e);
         }
@@ -48,7 +48,7 @@ export class AddUrl {
         return data;
     }
 
-    showResult(result) {
-        this.result.innerHTML = result;
+    showResult(result, alias="") {
+        this.result.innerHTML = result + "   " + alias;
     }
 }

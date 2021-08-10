@@ -1,6 +1,6 @@
 from flask.helpers import url_for
 from project import app, db
-from project.controllers import Url
+from project.controllers.url import Url
 from project.models import ShortUrl
 from flask import render_template, request, redirect
 import os, json
