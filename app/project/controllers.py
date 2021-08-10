@@ -39,5 +39,6 @@ class Url():
         else:
             return {
                 "success": True,
-                "message": "Alias has been created"
+                "message": "Alias has been created",
+                "result": url_for("redirect_by_alias", alias=new_url)
             }
