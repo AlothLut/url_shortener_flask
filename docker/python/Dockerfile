@@ -17,11 +17,11 @@ RUN pip install debugpy
 ENV FLASK_ENV=development
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
-CMD ["python", "-m", "debugpy", "--listen", "0.0.0.0:5678", "-m", "manage", "--wait-for-client", "--multiprocess", \ 
-"-m", "flask", "run", "-h", "0.0.0.0", "-p", "3031" \
+CMD ["python", "-m", "debugpy", "--listen", "10.10.0.10:5678", "-m", "manage", "--wait-for-client", "--multiprocess", \ 
+"-m", "flask", "run", "-h", "10.10.0.10", "-p", "3031" \
 ]
 
 FROM base as prod
 ENV FLASK_ENV=prod
 RUN pip install "gunicorn==20.1.0"
-CMD ["gunicorn", "--reload", "--bind", "0.0.0.0:3031", "manage:manage"]
+CMD ["gunicorn", "--reload", "--bind", "10.10.0.10:3031", "manage:manage"]
