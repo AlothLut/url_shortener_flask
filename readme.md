@@ -9,6 +9,8 @@ for develop:
 vscode + ms-python.python
 
 
+sudo chmod +x start-local.sh && sudo ./start-local.sh
+
 helpfull commands:
 
 docker-compose -f dev.yml up -d --build
