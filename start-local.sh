@@ -10,7 +10,7 @@ fi
 
 echo -e "\e[1;34m Add a rule to /etc/hosts\e[0m"
 
-echo "10.10.0.11 app-url-shortener.loc" | sudo tee --append /etc/hosts > /dev/null
+sudo grep -qxF "10.10.0.11 app-url-shortener.loc" /etc/hosts || echo "10.10.0.11 app-url-shortener.loc" | sudo tee -a /etc/hosts
 
 echo -e "\e[1;34m Build container\e[0m"
 
@@ -25,3 +25,5 @@ while ! nc -z 10.10.0.12 5432; do
 done
 
 sudo docker-compose -f dev.yml exec app-url-shortener python -c "from project import db ; db.create_all()"
+
+echo "http://app-url-shortener.loc/"
